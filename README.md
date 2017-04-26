@@ -1,0 +1,2 @@
+# beego_blog
+使用beego和mysql实现的一个简单的博客系统
