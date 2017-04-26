@@ -1,0 +1,51 @@
+{{template "header"}}
+<title>添加文章 - 我的 beego 博客</title>
+<link ref="shortcut icon" href="/static/img/favicon.png">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        {{template "navbar" .}}
+    </div>
+</div>
+
+<div class="container">
+    <h1>添加文章</h1>
+    <form method="post" action="/topic" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>文章标题:</label>
+            <input type="text" name="title" class="form-control" value="{{.Topic.Title}}"/>
+        </div>
+
+        <div class="form-group">
+            <label>文章分类:</label>
+            <input type="text" name="category" class="form-control" value="{{.Topic.Category}}"/>
+        </div>
+
+        <div class="form-group">
+            <label>文章标签:</label>
+            <input type="text" name="label" class="form-control" value="{{.Topic.Labels}}"/>
+        </div>
+
+        <div class="form-group">
+            <label>文章内容:</label>
+            <textarea name="content" cols="30" rows="10" class="form-control">{{.Topic.Content}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>文章附件<a href="/attachment/{{.Topic.Attachment}}">{{.Topic.Attachment}}</a> ：</label>
+            <input type="file" class="form-control" name="attachment" />
+        </div>
+
+        {{if .IsModify}}
+            <input type="hidden" name="opt" value="modify">
+            <input type="hidden" name="id" value="{{.Topic.Id}}">
+            <button type="submit" class="btn btn-default">保存修改</button>
+        {{else}}
+            <button type="submit" class="btn btn-default">添加文章</button>
+        {{end}}
+    </form>
+</div>
+</body>
+</html>

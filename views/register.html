@@ -1,0 +1,38 @@
+{{template "header"}}
+    <title>注册 - 我的 beego 博客</title>
+    <link ref="shortcut icon" href="/static/img/favicon.png">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container" style="width: 500px">
+        <form role="form" action="/register" method="post">
+            <div class="form-group">
+                <label>Account</label>
+                <input id="uname" name="uname" type="text" class="form-control" placeholder="Enter account">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input id="psw" name="psw" type="password" class="form-control" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-default" onclick="return checkInput();">注册</button>
+            <button class="btn btn-default" onclick="window.history.go(-1)">返回</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        function checkInput() {
+            var uname = document.getElementById("uname")
+            var psw = document.getElementById("psw")
+            if (uname.value.length ==0){
+                alert("请输入账号")
+                return false
+            }
+            if (psw.value.length ==0){
+                alert("请输入密码")
+                return false
+            }
+            return true
+        }
+    </script>
+</body>
+</html>

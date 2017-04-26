@@ -1,0 +1,55 @@
+{{template "header"}}
+<title>分类 - 我的 beego 博客</title>
+<link ref="shortcut icon" href="/static/img/favicon.png">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        {{template "navbar" .}}
+    </div>
+</div>
+
+<div class="container">
+    <h1>分类列表</h1>
+    <form role="form" action="/category" method="get">
+        <div class="form-group">
+            <label>分类名称</label>
+            <input id="name" name="name" type="text" class="form-control" placeholder="请输入分类名称">
+        </div>
+        <input type="hidden" name="opt" value="add">
+        <button type="submit" class="btn btn-default" onclick="return checkInput();">添加</button>
+    </form>
+    <script type="text/javascript">
+        function checkInput() {
+            var name = document.getElementById("name")
+            if (name.value.length ==0){
+                alert("请输入分类名称")
+                return false
+            }
+            return true
+        }
+    </script>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>名称</th>
+                <th>文章数</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Categories}}
+                <tr>
+                    <td>{{.Id}}</td>
+                    <td>{{.Title}}</td>
+                    <td>{{.TopicCount}}</td>
+                    <td><a href="/category?opt=del&id={{.Id}}">删除</a> </td>
+                </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

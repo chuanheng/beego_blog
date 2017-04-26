@@ -1,0 +1,52 @@
+{{template "header"}}
+<title>{{.Topic.Title}} - 我的 beego 博客</title>
+<link ref="shortcut icon" href="/static/img/favicon.png">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        {{template "navbar" .}}
+    </div>
+</div>
+
+<div class="container">
+    {{$labels := .Labels}}
+    {{with .Topic}}
+    <h1>{{.Title}}</h1>
+    <h5>
+        {{range $labels}}
+            <a class="btn btn-default btn-sm" href="/?label={{.}}">{{.}}</a>
+        {{end}}
+    </h5>
+    <p>{{.Content}}</p>
+    <p>文章附件：<a href="/attachment/{{.Attachment}}">{{.Attachment}}</a></p>
+    <h6 class="text-muted">文章发表于 {{.Created}}，共有 {{.Views}}次浏览 {{.ReplyCount}}个评论</h6>
+    <a href="/topic?opt=modify&id={{.Id}}" class="btn btn-default btn-sm">修改文章</a>
+    {{end}}
+
+    <div>
+        {{$tid := .Topic.Id}}
+        {{range .Replies}}
+            <h5>{{.Name}} <small>{{.Created}}</small> <a href="/reply/del?rid={{.Id}}&tid={{$tid}}">删除</a> </h5>
+            {{.Content}}
+        {{end}}
+        <h3>本文回复</h3>
+        <form method="post" action="/reply/add">
+            <input type="hidden" name="tid" value="{{.Topic.Id}}">
+            <div class="form-group">
+                <label>显示昵称</label>
+                <input class="form-control" name="nickname">
+            </div>
+
+            <div class="form-group">
+                <label>内容：</label>
+                <textarea name="content" id="" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <button class="btn btn-default">提交</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
